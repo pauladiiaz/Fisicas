@@ -1,5 +1,8 @@
 # Práctica 3: Físicas
 
+<embed src="Experimentando con las fisicas.pdf" type="application/pdf" width="600" height="400" />
+
+
 ## Ejercicio 1 — Control de personaje con Rigidbody
 - Se creó un personaje que se puede mover usando las teclas **WASD** o las flechas.
 - El movimiento está controlado mediante un **Rigidbody**, permitiendo que la física afecte al personaje (gravedad, colisiones) mientras se mantiene control total sobre su desplazamiento.
