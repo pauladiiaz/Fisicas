@@ -3,7 +3,7 @@
 ## Ejercicio 1 — Control de personaje con Rigidbody
 - Se creó un personaje que se puede mover usando las teclas **WASD** o las flechas.
 - El movimiento está controlado mediante un **Rigidbody**, permitiendo que la física afecte al personaje (gravedad, colisiones) mientras se mantiene control total sobre su desplazamiento.
-- Se utilizó `rb.MovePosition()` en `FixedUpdate` para aplicar el movimiento de manera física.
+- Se utilizó `rb.MovePosition()` en `FixedUpdate` para que se ejecute en intervalos fijos de tiempo y no dependa de los FPS.
 
 [![Control de personaje](https://github.com/user-attachments/assets/28082ea9-8b46-4f72-86d9-8aed4850824f)](https://github.com/user-attachments/assets/28082ea9-8b46-4f72-86d9-8aed4850824f)
 
@@ -34,8 +34,20 @@
 ## Ejercicio 5 — Physic Materials y fuerzas
 - Se crearon varios objetos con distintos **Physic Materials**:
   - Resbaladizo
+    - Dynamic Friction: 0
+    - Static Friction: 0
+    - Bounciness: 0
+    - Friction Combine: Minimum
   - Rugoso
+    - Dynamic Friction: 1
+    - Static Friction: 1
+    - Bounciness: 0
+    - Friction Combine: Maximum
   - Rebote alto
+    - Dynamic Friction: 0.6
+    - Static Friction: 0.6
+    - Bounciness: 1
+    - Bounce Combine: Maximum
 - Se aplicó `AddForce()` al presionar la tecla **X** para lanzar los objetos.
 - Se observó cómo la fricción y el rebote afectan la reacción de cada objeto al ser lanzado, destacando las diferencias físicas entre materiales.
 
