@@ -6,42 +6,32 @@ public class ZoneTrigger : MonoBehaviour
     public ZoneType zoneType;
 
     public Color colorInside = Color.red; // Color al entrar en la zona
-    public Color colorOriginal;           // Guardaremos el color original
-    private Renderer playerRenderer;
-
     public int damageAmount = 10;         // Cantidad de daño a aumentar
-    private PlayerStats playerStats;      // Referencia a un script de stats del personaje
 
-    private void Start()
-    {
-        // Si es zona de color, intentamos obtener Renderer del personaje
-        if (zoneType == ZoneType.ColorChange)
-        {
-            playerRenderer = GameObject.FindWithTag("Player")?.GetComponent<Renderer>();
-            if (playerRenderer != null)
-                colorOriginal = playerRenderer.material.color;
-        }
-
-        // Si es zona de daño, buscamos PlayerStats
-        if (zoneType == ZoneType.DamageZone)
-        {
-            playerStats = GameObject.FindWithTag("Player")?.GetComponent<PlayerStats>();
-        }
-    }
+    private Color colorOriginal;          // Guardamos el color original al entrar
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (zoneType == ZoneType.ColorChange && playerRenderer != null)
+            if (zoneType == ZoneType.ColorChange)
             {
-                playerRenderer.material.color = colorInside;
+                Renderer playerRenderer = other.GetComponent<Renderer>();
+                if (playerRenderer != null)
+                {
+                    colorOriginal = playerRenderer.material.color; // Guardamos el color original
+                    playerRenderer.material.color = colorInside;
+                }
             }
 
-            if (zoneType == ZoneType.DamageZone && playerStats != null)
+            if (zoneType == ZoneType.DamageZone)
             {
-                playerStats.damage += damageAmount;
-                Debug.Log("Daño aumentado a: " + playerStats.damage);
+                PlayerStats playerStats = other.GetComponent<PlayerStats>();
+                if (playerStats != null)
+                {
+                    playerStats.damage += damageAmount;
+                    Debug.Log("Daño aumentado a: " + playerStats.damage);
+                }
             }
         }
     }
@@ -50,10 +40,15 @@ public class ZoneTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (zoneType == ZoneType.ColorChange && playerRenderer != null)
+            if (zoneType == ZoneType.ColorChange)
             {
-                playerRenderer.material.color = colorOriginal;
+                Renderer playerRenderer = other.GetComponent<Renderer>();
+                if (playerRenderer != null)
+                {
+                    playerRenderer.material.color = colorOriginal; // Restauramos el color guardado
+                }
             }
         }
     }
 }
+
